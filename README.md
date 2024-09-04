@@ -1,3 +1,6 @@
+# This Fork
+This Fork Inclused Multiple QoL Changes, such as Clearing the buffer after a show()
+
 # MicroPython MAX7219 8x8 LED Matrix
 
 A MicroPython library for the MAX7219 8x8 LED matrix driver, SPI interface, supports cascading and uses [framebuf](http://docs.micropython.org/en/latest/pyboard/library/framebuf.html)
