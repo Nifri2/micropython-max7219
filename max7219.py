@@ -97,3 +97,29 @@ class Matrix8x8:
             for m in range(self.num):
                 self.spi.write(bytearray([_DIGIT0 + y, self.buffer[(y * self.num) + m]]))
             self.cs(1)
+        self.gc()
+
+    def gc(self):
+        # Clear all the buffers
+        self.buffer = bytearray(8 * self.num)
+        fb = framebuf.FrameBuffer(self.buffer, 8 * self.num, 8, framebuf.MONO_HLSB)
+        self.framebuf = fb
+        self.fill = fb.fill  
+        self.pixel = fb.pixel
+        self.hline = fb.hline
+        self.vline = fb.vline
+        self.line = fb.line
+        self.rect = fb.rect
+        self.fill_rect = fb.fill_rect
+        self.text = fb.text
+        self.scroll = fb.scroll
+        self.blit = fb.blit
+
+    def flush(self):
+        self.fill(0)
+        for y in range(8):
+            self.cs(0)
+            for m in range(self.num):
+                self.spi.write(bytearray([_DIGIT0 + y, self.buffer[(y * self.num) + m]]))
+            self.cs(1)
+        self.gc()
