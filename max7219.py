@@ -123,3 +123,41 @@ class Matrix8x8:
                 self.spi.write(bytearray([_DIGIT0 + y, self.buffer[(y * self.num) + m]]))
             self.cs(1)
         self.gc()
+    
+    def figure(self, figure):
+        # for fig in figure:
+        #     for i in range(8):
+        #         print(fig[i])
+        #         self._write(i+1, fig)
+        
+        buffer = [[] for i in range(len(figure))]
+        for b,fig in enumerate(figure):
+            print(fig)
+            for i in range(8):
+                buffer[b].append(i+1)
+                buffer[b].append((fig >> i * 8) & 0xff)
+        print(buffer)
+        
+        for i,row in enumerate(buffer):
+            self.cs(0)
+            self.spi.write(bytearray(row))
+            self.cs(1)
+            
+        # self.gc()
+        # for fig in figure:
+        #     self.cs(0)
+        #     for m in range(8):
+        #         self.spi.write(bytearray([_DIGIT0 + m, fig[m]]))
+        #         print([_DIGIT0 + m, hex(fig[m])])
+        #     self.cs(1)
+        # self.gc()
+        
+        
+        # for y in range(8):
+        #     self.cs(0)
+        #     for m in range(8):
+        #         self.spi.write(bytearray([_DIGIT0 + y, figure[(y * self.num) + m]]))
+        #         print([_DIGIT0 + y, hex(figure[(y * self.num) + m])])
+        #     self.cs(1)
+        #     print("CS")
+        # self.gc()
